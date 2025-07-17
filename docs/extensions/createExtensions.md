@@ -4,7 +4,7 @@ sidebar_position: 11
 
 # Creating Your Own Extension
 
-This section will help you develop custom extensions for Scaffold-ETH 2, from simple additions to more complex modifications.
+This section will help you develop custom extensions for Scaffold-Stylus, from simple additions to more complex modifications.
 
 > Video Guide: For a visual walkthrough of the extension development process, check out our [YouTube tutorial](https://youtu.be/XQCv533XGZk?si=dlJH4zd4b99_6soW).
 
@@ -59,13 +59,13 @@ Key points:
 
 ### Advanced Development Workflow
 
-When creating complex extensions, Scaffold-ETH 2 provides a set of tools to make the process easier. This workflow allows you to develop your extension in a full Scaffold-ETH 2 environment, test it locally, and then package it for distribution.
+When creating complex extensions, Scaffold-Stylus provides a set of tools to make the process easier. This workflow allows you to develop your extension in a full Scaffold-Stylus environment, test it locally, and then package it for distribution.
 
 The workflow consists of two main parts:
 
-1. Extension Development: This process helps you create your extension by modifying a base Scaffold-ETH 2 project.
+1. Extension Development: This process helps you create your extension by modifying a base Scaffold-Stylus project.
 
-2. Local Testing: This allows you to test your extension in a full Scaffold-ETH 2 environment before publishing.
+2. Local Testing: This allows you to test your extension in a full Scaffold-Stylus environment before publishing.
 
 ### Extension Development Utility
 

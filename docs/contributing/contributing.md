@@ -2,9 +2,9 @@
 sidebar_position: 10
 ---
 
-# 🙏 Contributing to Scaffold-ETH 2
+# 🙏 Contributing to Scaffold-Stylus
 
-We welcome contributions to Scaffold-ETH 2!
+We welcome contributions to Scaffold-Stylus!
 
 This section aims to provide an overview of the contribution workflow to help us make the contribution process effective for everyone involved.
 

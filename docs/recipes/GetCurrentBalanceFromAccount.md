@@ -20,7 +20,7 @@ export const ConnectedAddressBalance = () => {
 
   return (
     <div className="bg-base-300 p-6 rounded-lg max-w-md mx-auto mt-6">
-      <h2 className="text-lg font-bold mb-2">Your Ethereum Balance</h2>
+      <h2 className="text-lg font-bold mb-2">Your Arbittrum Balance</h2>
 
       <div className="text-sm font-semibold mb-2">
         Address: <Address address={connectedAddress} />
@@ -46,7 +46,7 @@ Begin by creating a new component in the "components" folder of your application
 export const ConnectedAddressBalance = () => {
   return (
     <div>
-      <h2>Your Ethereum Balance</h2>
+      <h2>Your Arbittrum Balance</h2>
     </div>
   );
 };
@@ -54,7 +54,7 @@ export const ConnectedAddressBalance = () => {
 
 ### Step 2: Retrieve the Connected Account
 
-Fetch the Ethereum address of the currently connected account using the [useAccount wagmi hook](https://wagmi.sh/react/api/hooks/useAccount) and easily display them using Scaffold ETH-2 [Address](/components/Address) and [Balance](/components/Balance) components.
+Fetch the Arbittrum address of the currently connected account using the [useAccount wagmi hook](https://wagmi.sh/react/api/hooks/useAccount) and easily display them using Scaffold ETH-2 [Address](/components/Address) and [Balance](/components/Balance) components.
 
 ```tsx title="components/ConnectedAddressBalance.tsx"
 // highlight-start
@@ -69,7 +69,7 @@ export const ConnectedAddressBalance = () => {
 
   return (
     <div>
-      <h2>Your Ethereum Balance</h2>
+      <h2>Your Arbittrum Balance</h2>
       {/* highlight-start */}
       Address: <Address address={connectedAddress} />
       Balance: <Balance address={connectedAddress} />

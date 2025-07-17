@@ -6,20 +6,20 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "🏗 Scaffold-ETH 2 | Docs",
+  title: "🏗 Scaffold-Stylus | Docs",
   tagline: "Open-source toolkit for building dapps",
   favicon: "img/favicon.png",
 
   // Set the production url of your site here
-  url: "https://docs.scaffoldeth.io",
+  url: "https://docs.scaffoldstylus.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "scaffold-eth",
-  projectName: "scaffold-eth-2",
+  organizationName: "Arb-Stylus",
+  projectName: "scaffold-stylus",
   plugins: [
     [
       require.resolve("@cmfcmf/docusaurus-search-local"),
@@ -34,7 +34,7 @@ const config = {
       src: "https://plausible.io/js/plausible.js",
       async: true,
       defer: true,
-      "data-domain": "docs.scaffoldeth.io",
+      "data-domain": "docs.scaffoldstylus.io",
     },
   ],
 
@@ -60,7 +60,7 @@ const config = {
           // sidebarCollapsible: false,
           sidebarCollapsed: true,
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/scaffold-eth/se2-docs/edit/main/",
+          editUrl: "https://github.com/Arb-Stylus/scaffold-stylus-docs/edit/main/",
         },
         blog: false,
         theme: {
@@ -79,26 +79,26 @@ const config = {
       },
       image: "img/thumbnail.jpg",
       navbar: {
-        title: "Scaffold-ETH 2 | Docs",
+        title: "Scaffold-Stylus | Docs",
         logo: {
-          alt: "scaffold-eth-logo",
+          alt: "scaffold-stylus-logo",
           src: "img/logo.svg",
         },
         items: [
-          // commented until Scaffold-eth 2 website is launched
+          // commented until Scaffold-Stylus website is launched
           // {
-          //   href: 'https://scaffoldeth.io/',
-          //   label: 'SE-2 Website',
+          //   href: 'https://scaffoldstylus.io/',
+          //   label: 'Scaffold-Stylus Website',
           //   position: 'left',
           // },
           {
-            href: "https://github.com/scaffold-eth/se2-docs",
+            href: "https://github.com/Arb-Stylus/scaffold-stylus-docs",
             label: "GitHub Docs",
             position: "right",
           },
           {
-            href: "https://github.com/scaffold-eth/scaffold-eth-2",
-            label: "GitHub SE-2",
+            href: "https://github.com/Arb-Stylus/scaffold-stylus",
+            label: "GitHub Scaffold-Stylus",
             position: "right",
           },
         ],
@@ -123,12 +123,12 @@ const config = {
             title: "GitHub",
             items: [
               {
-                label: "Scaffold-Eth 2 GitHub",
-                href: "https://github.com/scaffold-eth/scaffold-eth-2",
+                label: "Scaffold-Stylus GitHub",
+                href: "https://github.com/Arb-Stylus/scaffold-stylus",
               },
               {
                 label: "Docs GitHub",
-                href: "https://github.com/scaffold-eth/se2-docs",
+                href: "https://github.com/Arb-Stylus/scaffold-stylus-docs",
               },
             ],
           },
@@ -137,7 +137,7 @@ const config = {
             items: [
               {
                 label: "Twitter",
-                href: "https://twitter.com/ScaffoldETH",
+                href: "https://twitter.com/ScaffoldStylus",
               },
               {
                 label: "Telegram",
@@ -150,7 +150,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Scaffold-eth Docs. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Scaffold-Stylus Docs. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
