@@ -20,6 +20,8 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "Arb-Stylus",
   projectName: "scaffold-stylus",
+  trailingSlash: false,
+
   plugins: [
     [
       require.resolve("@cmfcmf/docusaurus-search-local"),
