@@ -19,7 +19,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "Arb-Stylus",
-  projectName: "scaffold-stylus",
+  projectName: "scaffold-stylus-docs",
   trailingSlash: false,
 
   plugins: [
