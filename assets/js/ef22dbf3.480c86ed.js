@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkse_2=self.webpackChunkse_2||[]).push([[249],{8391:t=>{t.exports=JSON.parse('{"title":"\ud83d\ude80 QuickStart","slug":"quick-start","permalink":"/quick-start","navigation":{"previous":{"title":"\ud83c\udfd7 Welcome to Scaffold-Stylus","permalink":"/"},"next":{"title":"Installation","permalink":"/quick-start/installation"}}}')}}]);
