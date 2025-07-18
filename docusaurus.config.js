@@ -77,7 +77,6 @@ const config = {
       colorMode: {
         respectPrefersColorScheme: true,
       },
-      image: "img/thumbnail.jpg",
       navbar: {
         title: "Scaffold-Stylus | Docs",
         logo: {
@@ -86,11 +85,11 @@ const config = {
         },
         items: [
           // commented until Scaffold-Stylus website is launched
-          // {
-          //   href: 'https://scaffoldstylus.io/',
-          //   label: 'Scaffold-Stylus Website',
-          //   position: 'left',
-          // },
+          {
+            href: "https://www.scaffoldstylus.com/",
+            label: "Scaffold-Stylus Website",
+            position: "left",
+          },
           {
             href: "https://github.com/Arb-Stylus/scaffold-stylus-docs",
             label: "GitHub Docs",
@@ -137,15 +136,15 @@ const config = {
             items: [
               {
                 label: "Twitter",
-                href: "https://twitter.com/ScaffoldStylus",
+                href: "https://x.com/arbitrum",
               },
               {
                 label: "Telegram",
-                href: "https://t.me/joinchat/F7nCRK3kI93PoCOk",
+                href: "https://t.me/arbitrum_stylus",
               },
               {
-                label: "Youtube",
-                href: "https://www.youtube.com/@austingriffith3550/playlists",
+                label: "Discord",
+                href: "https://discord.com/invite/arbitrum",
               },
             ],
           },
