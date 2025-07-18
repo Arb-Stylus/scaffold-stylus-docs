@@ -5,11 +5,11 @@ slug: /
 
 # 🏗 Welcome to Scaffold-Stylus
 
-[Scaffold-Stylus](https://github.com/Arb-Stylus/scaffold-stylus) is everything you need to get started building decentralized applications on Arbittrum! 🚀
+[Scaffold-Stylus](https://github.com/Arb-Stylus/scaffold-stylus) is everything you need to get started building decentralized applications on Arbitrum! 🚀
 
 ⚙️ Built using NextJS, RainbowKit, Hardhat, Foundry, Wagmi, and TypeScript.
 
-<div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
+<!-- <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
   <iframe
     src=""
     title="Scaffold-Stylus Intro Video"
@@ -24,15 +24,15 @@ slug: /
       border: 0
     }}
   />
-</div>
+</div> -->
 
 ## About Scaffold-Stylus
 
-Scaffold-Stylus is an open-source, up-to-date toolkit for building decentralized applications (dapps) on the Arbittrum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+Scaffold-Stylus is an open-source, up-to-date toolkit for building decentralized applications (dapps) on the Arbitrum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
 
 - ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
 - 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Arbittrum network.
+- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Arbitrum network.
 
 ## Scaffold-Stylus Tech Stack
 
@@ -40,9 +40,9 @@ Scaffold-Stylus is not a product itself but more of a combination or stack of ot
 
 Here are the main components:
 
-- [**Hardhat**](https://hardhat.org/docs) or [**Foundry**](https://book.getfoundry.sh/) (user's choice) for running local networks, deploying and testing smart contracts.
-- [**Wagmi**](https://wagmi.sh/react/getting-started) for React Hooks to start working with Arbittrum.
-- [**Viem**](https://viem.sh/docs/getting-started.html) as low-level interface that provides primitives to interact with Arbittrum. The alternative to ethers.js and web3.js.
+- [**Stylus**](https://docs.arbitrum.io/stylus/gentle-introduction) for running local networks, deploying and testing smart contracts.
+- [**Wagmi**](https://wagmi.sh/react/getting-started) for React Hooks to start working with Arbitrum.
+- [**Viem**](https://viem.sh/docs/getting-started.html) as low-level interface that provides primitives to interact with Arbitrum. The alternative to ethers.js and web3.js.
 - [**NextJS**](https://nextjs.org/docs) for building a frontend, using many useful pre-made hooks.
 - [**RainbowKit**](https://www.rainbowkit.com/docs/) for adding wallet connection.
 - [**DaisyUI**](https://daisyui.com/docs/) for pre-built [Tailwind CSS](https://tailwindui.com/components) components.

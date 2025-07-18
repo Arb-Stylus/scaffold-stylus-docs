@@ -1,6 +1,6 @@
 # Scaffold-Stylus
 
-Everything you need to build dApps on Arbittrum. A modern, clean version of Scaffold-Stylus with NextJS, RainbowKit, Wagmi and Typescript. Supports Hardhat and Foundry.
+Everything you need to build dApps on Arbitrum. A modern, clean version of Scaffold-Stylus with NextJS, RainbowKit, Wagmi and Typescript. Supports Hardhat and Foundry.
 
 ## High level overview
 
@@ -152,7 +152,7 @@ import { Address } from "~~/components/scaffold-eth";
 
 Source: https://docs.scaffoldeth.io/components/AddressInput
 
-Display an Arbittrum address input that validates the address format, resolves ENS domains, and shows their avatars.
+Display an Ethereum address input that validates the address format, resolves ENS domains, and shows their avatars.
 
 Also shows a blockie image for each address.
 
@@ -178,7 +178,7 @@ const [address, setAddress] = useState("");
 
 | Prop                       | Type       | Default Value | Description                                                                  |
 | -------------------------- | ---------- | ------------- | ---------------------------------------------------------------------------- |
-| **value**                  | `string`   | `undefined`   | An Arbittrum address in (`0x___` format) or an ENS domain.                    |
+| **value**                  | `string`   | `undefined`   | An Ethereum address in (`0x___` format) or an ENS domain.                    |
 | **onChange**               | `function` | `undefined`   | A callback invoked when the data in the address input changes.               |
 | **placeholder** (optional) | `string`   | `undefined`   | The string that will be rendered before address input has been entered.      |
 | **name** (optional)        | `string`   | `undefined`   | Helps identify the data being sent if AddressInput is submitted into a form. |
@@ -1437,7 +1437,7 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
 
-Now that our installation is complete, let's configure the development environment for Scaffold ETH-2.
+Now that our installation is complete, let's configure the development environment for Scaffold Stylus.
 
 #### 1. **Initialize a Local Blockchain**:
 
@@ -1447,7 +1447,7 @@ In the first terminal, run a local network:
 yarn chain
 ```
 
-This command starts a local Arbittrum network using Hardhat or Foundry, depending on which one you selected in the CLI. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in:
+This command starts a local Arbitrum network using Hardhat or Foundry, depending on which one you selected in the CLI. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in:
 
 ```mdx-code-block
 <Tabs groupId="dev-tool">
@@ -1718,7 +1718,7 @@ export const ConnectedAddressBalance = () => {
 
   return (
     <div className="bg-base-300 p-6 rounded-lg max-w-md mx-auto mt-6">
-      <h2 className="text-lg font-bold mb-2">Your Arbittrum Balance</h2>
+      <h2 className="text-lg font-bold mb-2">Your Ethereum Balance</h2>
 
       <div className="text-sm font-semibold mb-2">
         Address: <Address address={connectedAddress} />
@@ -1744,7 +1744,7 @@ Begin by creating a new component in the "components" folder of your application
 export const ConnectedAddressBalance = () => {
   return (
     <div>
-      <h2>Your Arbittrum Balance</h2>
+      <h2>Your Ethereum Balance</h2>
     </div>
   );
 };
@@ -1752,7 +1752,7 @@ export const ConnectedAddressBalance = () => {
 
 #### Step 2: Retrieve the Connected Account
 
-Fetch the Arbittrum address of the currently connected account using the [useAccount wagmi hook](https://wagmi.sh/react/api/hooks/useAccount) and easily display them using Scaffold ETH-2 [Address](/components/Address) and [Balance](/components/Balance) components.
+Fetch the Ethereum address of the currently connected account using the [useAccount wagmi hook](https://wagmi.sh/react/api/hooks/useAccount) and easily display them using Scaffold Stylus [Address](/components/Address) and [Balance](/components/Balance) components.
 
 ```tsx title="components/ConnectedAddressBalance.tsx"
 // highlight-start
@@ -1767,7 +1767,7 @@ export const ConnectedAddressBalance = () => {
 
   return (
     <div>
-      <h2>Your Arbittrum Balance</h2>
+      <h2>Your Ethereum Balance</h2>
       {/* highlight-start */}
       Address: <Address address={connectedAddress} />
       Balance: <Balance address={connectedAddress} />
