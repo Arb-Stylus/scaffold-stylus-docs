@@ -28,6 +28,17 @@ npm run docusaurus serve
 
 If you change the [search configuration](/docusaurus.config.js#L27), you'll need to run `npm run docusaurus build` and then `npm run docusaurus serve` again to refresh with the changes.
 
+### Deploy to github page
+
+Follow this [doc](https://docusaurus.io/docs/deployment#docusaurusconfigjs-settings) to config your `docusaurus.config.js`
+Then run
+
+```bash
+USE_SSH=true npm run deploy
+```
+
+**Note** You need to config your SSH key before deploying
+
 ## Contribution Guidelines
 
 Thank you for your interest in contributing to improve the documentation!
