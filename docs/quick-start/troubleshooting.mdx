@@ -1,0 +1,143 @@
+---
+sidebar_position: 3
+---
+
+# Troubleshooting Common Issues
+
+This guide helps you resolve common issues you might encounter when working with Scaffold-Stylus.
+
+## 1. `stylus` Not Recognized
+
+If you encounter an error stating that `stylus` is not recognized as an external or internal command, run the following command in your terminal:
+
+```bash
+sudo apt-get update && sudo apt-get install -y pkg-config libssl-dev
+```
+
+After that, check if `stylus` is installed by running:
+
+```bash
+cargo stylus --version
+```
+
+If the version is displayed, `stylus` has been successfully installed and the path is correctly set.
+
+## 2. ABI Not Generated
+
+If you face issues with the ABI not being generated, you can try one of the following solutions:
+
+- **Restart Docker Node**: Pause and restart the Docker node and the local setup of the project. You can do this by deleting all ongoing running containers and then restarting the local terminal using:
+  ```bash
+  yarn run dev
+  ```
+- **Modify the Script**: In the `run-dev-node.sh` script, replace the line:
+
+  ```bash
+  cargo stylus export-abi
+  ```
+
+  with:
+
+  ```bash
+  cargo run --manifest-path=Cargo.toml --features export-abi
+  ```
+
+- **Access Denied Issue**: If you encounter an access denied permission error during ABI generation, run the following command and then execute the script again:
+  ```bash
+  sudo chown -R $USER:$USER target
+  ```
+
+## 3. Fixing Line Endings and Running Shell Scripts in WSL
+
+> ⚠️ This guide provides step-by-step instructions to resolve the Command not found error caused by CRLF line endings in shell scripts when running in a WSL environment.
+
+Shell scripts created in Windows often have `CRLF` line endings, which cause issues in Unix-like environments such as WSL. To fix this:
+
+**Using `dos2unix`:**
+
+1. Install `dos2unix` (if not already installed):
+
+   ```bash
+   sudo apt install dos2unix
+   ```
+
+2. Convert the script's line endings:
+
+   ```bash
+   dos2unix run-dev-node.sh
+   ```
+
+3. Make the Script Executable:
+
+   ```bash
+   chmod +x run-dev-node.sh
+   ```
+
+4. Run the Script in WSL:
+   ```bash
+   bash run-dev-node.sh
+   ```
+
+## 4. Network Connection Issues
+
+### RPC Endpoint Problems
+
+If you're having trouble connecting to networks:
+
+1. **Check your RPC URL**: Ensure your `RPC_URL_<network>` environment variable is correct
+2. **Test network availability**: Run `yarn test:networks` to verify available networks
+3. **Use fallback RPCs**: If your primary RPC is down, the system will automatically use public RPC endpoints
+
+### Private Key Issues
+
+If deployment fails due to private key problems:
+
+1. **Verify private key format**: Ensure your private key doesn't include the `0x` prefix
+2. **Check account balance**: Make sure your account has sufficient funds for deployment
+3. **Network mismatch**: Ensure you're using the correct private key for the target network
+
+## 5. Contract Deployment Failures
+
+### Compilation Errors
+
+If your Rust contract fails to compile:
+
+1. **Check Rust toolchain**: Ensure you're using the correct Rust version
+
+   ```bash
+   rustup default 1.87
+   rustup target add wasm32-unknown-unknown --toolchain 1.87
+   ```
+
+2. **Verify dependencies**: Check that all dependencies in `Cargo.toml` are compatible
+3. **Clean build**: Try cleaning and rebuilding
+   ```bash
+   cargo clean
+   cargo stylus check
+   ```
+
+## 6. Frontend Issues
+
+### Contract Not Found
+
+If your frontend can't find deployed contracts:
+
+1. **Check network configuration**: Ensure `scaffold.config.ts` has the correct `targetNetworks`
+2. **Verify deployment**: Check that contracts were deployed to the correct network
+3. **Refresh ABI**: Run `yarn export-abi` to regenerate contract interfaces
+
+### Wallet Connection Problems
+
+If wallet connection fails:
+
+1. **Check network**: Ensure your wallet is connected to the correct network
+2. **Clear cache**: Clear your browser cache and wallet cache
+3. **Check wallet permissions**: Ensure your wallet has the necessary permissions
+
+## Getting Help
+
+If you're still experiencing issues:
+
+1. **Check the [GitHub Issues](https://github.com/Arb-Stylus/scaffold-stylus/issues)** for similar problems
+2. **Join the [Discord community](https://discord.com/invite/arbitrum)** for real-time help
+3. **Review the [Arbitrum Stylus documentation](https://docs.arbitrum.io/stylus/)** for Stylus-specific issues

@@ -28,7 +28,7 @@ In the second terminal, deploy the test contract:
 yarn deploy
 ```
 
-This command deploys a test smart contract to the local network. The contract can be modified to suit your needs and can be found in `packages/stylus/src`. The deployment script is located in `packages/stylus/scripts`.
+This command deploys a test smart contract to the local network. The contract can be modified to suit your needs and can be found in `packages/stylus/your-contract/src`. The deployment script is located in `packages/stylus/scripts/deploy.ts`.
 
 ## 3. Launch Your NextJS Application
 
@@ -42,8 +42,8 @@ Visit your app at: `http://localhost:3000`. You can interact with your smart con
 
 ## What's Next
 
-- Edit your smart contract in `packages/stylus/src`
-- Edit your deployment scripts in `packages/stylus/scripts`
+- Edit your smart contract in `packages/stylus/your-contract/src`
+- Edit your deployment scripts in `packages/stylus/scripts/deploy.ts`
 - Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts), check out the Next.js documentation.
 - Edit the app config in `packages/nextjs/scaffold.config.ts`
 - Edit your smart contract test and run tests with `yarn stylus:test`. Check [test documentation](https://docs.arbitrum.io/stylus/how-tos/testing-contracts) for more guidances.
