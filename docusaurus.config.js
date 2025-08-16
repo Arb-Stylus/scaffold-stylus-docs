@@ -83,7 +83,7 @@ const config = {
         title: "Scaffold-Stylus | Docs",
         logo: {
           alt: "scaffold-stylus-logo",
-          src: "img/logo.svg",
+          src: "img/favicon.png",
         },
         items: [
           // commented until Scaffold-Stylus website is launched
