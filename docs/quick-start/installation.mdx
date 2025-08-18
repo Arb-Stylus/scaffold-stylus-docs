@@ -57,3 +57,29 @@ yarn install
 # Initialize submodules (required for Nitro dev node)
 git submodule update --init --recursive
 ```
+
+---
+
+## Install the Stylus CLI tool with Cargo:
+
+```bash
+cargo install --force cargo-stylus cargo-stylus-check
+```
+
+**Prerequisite:**
+
+- `cargo-stylus` version `^0.6.1`
+- `rustc` version match with `packages/stylus/your-contract/rust-toolchain.toml`
+
+Set default `toolchain` match `rust-toolchain.toml` and add the `wasm32-unknown-unknown` build target to your Rust compiler:
+
+```bash
+rustup default 1.89
+rustup target add wasm32-unknown-unknown --toolchain 1.89
+```
+
+You should now have it available as a Cargo subcommand:
+
+```bash
+cargo stylus --help
+```
