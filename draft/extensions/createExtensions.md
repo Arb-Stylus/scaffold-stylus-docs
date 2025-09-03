@@ -16,8 +16,7 @@ Before diving into the development process, let's understand the structure an ex
 your-extension/
 ├── extension/
 │   ├── packages/
-│   │   ├── hardhat/        # (optional) For Hardhat-specific additions
-│   │   ├── foundry/        # (optional) For Foundry-specific additions
+│   │   ├── stylus/        # (optional) For Stylus-specific additions
 │   │   └── nextjs/
 │   │       ├── app/        # Any new pages/files
 │   │       │   └── my-page

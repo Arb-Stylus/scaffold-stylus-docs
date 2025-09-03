@@ -15,13 +15,13 @@ Any error will instead show a popup with nice error message.
 ```ts
 const transactor = useTransactor();
 const writeTx = transactor({
-  to: "0x97843608a00e2bbc75ab0C1911387E002565DEDE", // address of buidlguidl.eth
+  to: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", // address of vitalik.eth
   value: 1000000000000000000n,
 });
 await writeTx();
 ```
 
-This example tries to send 1 ETH to the address `buidlguidl.eth`, prompting the connected [`WalletClient`](https://wagmi.sh/react/api/hooks/useWalletClient#usewalletclient) for a signature. And in the case of a successful transaction, it will show a popup in the UI with the message: "🎉 Transaction completed successfully!".
+This example tries to send 1 ETH to the address `vitalik.eth`, prompting the connected [`WalletClient`](https://wagmi.sh/react/api/hooks/useWalletClient#usewalletclient) for a signature. And in the case of a successful transaction, it will show a popup in the UI with the message: "🎉 Transaction completed successfully!".
 
 You can pass in anything that is a valid parameter to [Viem's `sendTransaction` function](https://viem.sh/docs/actions/wallet/sendTransaction#parameters) to callback function. It also possible to pass it an promise that resolves in with a transaction hash for example promise from [Wagmi's `writeContractAsync` function](https://wagmi.sh/react/api/hooks/useWriteContract#mutate-async).
 

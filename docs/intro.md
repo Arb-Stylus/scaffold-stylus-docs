@@ -7,7 +7,7 @@ slug: /
 
 [Scaffold-Stylus](https://github.com/Arb-Stylus/scaffold-stylus) is everything you need to get started building decentralized applications on Arbitrum! 🚀
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Foundry, Wagmi, and TypeScript.
+⚙️ Built using NextJS, RainbowKit, Arbitrum Stylus, Foundry, Wagmi, and TypeScript.
 
 <!-- <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
   <iframe

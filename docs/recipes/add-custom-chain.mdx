@@ -9,18 +9,18 @@ import TabItem from "@theme/TabItem";
 
 # Add a custom chain
 
-This recipe demonstrates how to add a custom chain to your project. We'll use Base as an example, but you can apply this process to any other chain you want to add.
+This recipe demonstrates how to add a custom chain to your project. We'll use an Arbitrum Orbit chain as an example, but you can apply this process to any other chain you want to add.
 Scaffold-Stylus uses [viem/chains](https://viem.sh/docs/chains/introduction) as a list of chains.
-Normally, Base already exists in viem/chains and [you can import it and use it](/deploying/deploy-nextjs-app#--targetnetworks), but we're going to add it manually to show you how to do it.
+Arbitrum Orbit chains are custom blockchains built using Arbitrum's technology stack that settle on Arbitrum L2s or Ethereum. Since these are custom chains, you'll need to add them manually to your project.
 
 :::info
 Scaffold-Stylus consists of two parts:
 
 - `packages/nextjs`: nextjs frontend
-- `packages/hardhat` or `packages/foundry`: hardhat or foundry to deploy smart contracts
+- `packages/stylus`: use Arbitrum Stylus to deploy smart contracts
 
-The frontend and the hardhat/foundry project use a different set of chains.
-You should add the chain to both the frontend and your hardhat/foundry config. Checkout [deploying your smart contract](/deploying/deploy-smart-contracts) section on how to deploy different chains.
+The frontend and the Stylus project use a different set of chains.
+You should add the chain to both the frontend and your stylus config. Checkout [deploying your smart contract](/deploying/deploy-smart-contracts) section on how to deploy different chains.
 
 By doing this, you will be able to deploy the contracts to the chain you added and interact with them from the frontend.
 
@@ -35,37 +35,47 @@ Open the file with your favorite editor and add the following code to define the
 ```typescript title="packages/nextjs/utils/customChains.ts"
 import { defineChain } from "viem";
 
-// Base chain
-export const base = defineChain({
-  id: 8453,
-  name: "Base",
-  nativeCurrency: { name: "Base", symbol: "ETH", decimals: 18 },
+// Arbitrum Orbit chain example
+export const myOrbitChain = defineChain({
+  id: 123456789, // Replace with your Orbit chain's chain ID
+  name: "My Orbit Chain",
+  nativeCurrency: { name: "Ethereum", symbol: "ETH", decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["https://mainnet.base.org"],
+      http: ["https://your-orbit-chain-rpc-url.com"], // Replace with your Orbit chain's RPC URL
     },
   },
   blockExplorers: {
     default: {
-      name: "Basescan",
-      url: "https://basescan.org",
+      name: "My Orbit Explorer",
+      url: "https://your-orbit-explorer.com", // Replace with your Orbit chain's block explorer
     },
   },
+  // Optional: Add testnet version
+  testnet: true, // Set to false for mainnet
 });
 ```
 
-In this file, we're defining the Base chain. We're using the `defineChain` function from viem to define the chain. You can add as many chains as you want to the `customChains.ts` file.
+In this file, we're defining an Arbitrum Orbit chain. We're using the `defineChain` function from viem to define the chain. You can add as many chains as you want to the `customChains.ts` file.
+
+:::tip
+When setting up your Orbit chain, you'll need to:
+1. Get the chain ID from your Orbit chain deployment
+2. Obtain the RPC URL from your Orbit chain provider
+3. Set up a block explorer (optional but recommended)
+4. Configure the native currency (usually ETH for Orbit chains)
+:::
 
 ### Step 2: Update `scaffold.config.ts`
 
 Next, update your `scaffold.config.ts` file to include the new chain:
 
 ```typescript title="packages/nextjs/scaffold.config.ts"
-import { base } from "./utils/customChains";
+import { myOrbitChain } from "./utils/customChains";
 // ... other imports and type definitions
 
 const scaffoldConfig = {
-  targetNetworks: [base],
+  targetNetworks: [myOrbitChain],
   // ... other configuration options
 } as const satisfies ScaffoldConfig;
 
@@ -75,10 +85,48 @@ export default scaffoldConfig;
 If you'd like to add multiple chains, you can do so by adding them to the `targetNetworks` array. Below is a simple example of how to add multiple chains.
 
 ```typescript title="packages/nextjs/scaffold.config.ts"
-import { base, baseSepolia } from "./utils/customChains";
+import { myOrbitChain, myOrbitChainTestnet } from "./utils/customChains";
 
 const scaffoldConfig = {
-  targetNetworks: [base, baseSepolia],
+  targetNetworks: [myOrbitChain, myOrbitChainTestnet],
   // ... other configuration options
 } as const satisfies ScaffoldConfig;
 ```
+
+### Step 3: Arbitrum Orbit Specific Considerations
+
+When working with Arbitrum Orbit chains, there are a few additional considerations:
+
+#### Gas Configuration
+Orbit chains may have different gas configurations. You might need to adjust gas settings in your contracts:
+
+```typescript title="packages/nextjs/utils/customChains.ts"
+export const myOrbitChain = defineChain({
+  // ... other chain configuration
+  fees: {
+    baseFeeMultiplier: 1.2, // Adjust based on your Orbit chain's gas model
+  },
+});
+```
+
+#### Bridge Configuration
+If your Orbit chain supports bridging, you may want to configure bridge contracts:
+
+```typescript title="packages/nextjs/utils/customChains.ts"
+export const myOrbitChain = defineChain({
+  // ... other chain configuration
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11", // Standard multicall3 address
+    },
+    // Add bridge contracts if needed
+  },
+});
+```
+
+#### Stylus Compatibility
+Since Scaffold-Stylus supports Arbitrum Stylus, your Orbit chain should be compatible with Stylus contracts. Make sure your Orbit chain deployment includes Stylus support.
+
+:::info
+For more information about deploying to Arbitrum Orbit chains, check the [Arbitrum Orbit documentation](https://docs.arbitrum.io/launch-orbit-chain/).
+:::

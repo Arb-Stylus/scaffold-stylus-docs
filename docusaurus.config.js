@@ -108,15 +108,15 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Built with ♥ at BuidlGuidl",
+            title: "Built with ♥ at Arbitrum",
             items: [
               {
-                label: "BuidlGuidl Website",
-                to: "https://buidlguidl.com/",
+                label: "Arbitrum Website",
+                to: "https://arbitrum.io/",
               },
               {
-                label: "BuidlGuidl Twitter",
-                to: "https://twitter.com/buidlguidl",
+                label: "Arbitrum Twitter",
+                to: "https://twitter.com/arbitrum",
               },
             ],
           },

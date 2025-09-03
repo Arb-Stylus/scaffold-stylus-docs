@@ -2,17 +2,20 @@
 sidebar_position: 1
 ---
 
+import AddressFull from '/img/AddressFull.png';
+import AddressOnlyEnsOrAddress from '/img/AddressOnlyEnsOrAddress.png';
+
 # Address
 
 Display an address (or ENS) along with a utility icon to copy the address. If the address is associated with an ENS that has an avatar, this avatar will be displayed. If not, a blockie image representation of the address will be shown.
 
 By default, the component will show the ENS name (if available) and the address.
 
-![Ens And Address Example](/img/AddressFull.png)
+<img src={AddressFull} alt="Ens And Address Example" style={{width: '300px', height: 'auto'}} />
 
 You can also choose to display only the ENS name (if available) or the address, by setting the `onlyEnsOrAddress` prop to `true`.
 
-![Only Ens Or Address Example](/img/AddressOnlyEnsOrAddress.png)
+<img src={AddressOnlyEnsOrAddress} alt="Only Ens Or Address Example" style={{width: '300px', height: 'auto'}} />
 
 Clicking on the address redirects to the connected wallet's network block explorer. If the wallet is not connected, it redirects to the block explorer of [`targetNetworks[0]`](/deploying/deploy-nextjs-app#--targetnetworks). You can disable this behaviour with the `disableAddressLink` prop.
 
