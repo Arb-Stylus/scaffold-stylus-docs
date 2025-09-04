@@ -73,13 +73,73 @@ sidebar_position: 2
 
 If you want to **create a new folder** to the Document structure, you'll need to add the new folder and a markdown document with the same name of that folder, which will be displayed when the users click on the sidebar link.
 
-<!---
-TODO: Explain how to upload/link images to the docs. Currently there are none.
--->
+### Images and Media
 
-<!---
-TODO: Explain _category_.json
--->
+To add images to your documentation:
+
+1. **Place images in the `static/img/` directory** - All static assets should be placed in the `static` folder, which gets served at the root URL.
+
+2. **Reference images in your markdown** - Use standard markdown image syntax:
+   ```markdown
+   ![Alt text](/img/your-image.png)
+   ```
+   The `/img/` path corresponds to the `static/img/` directory in your project.
+
+3. **Supported formats** - Docusaurus supports common image formats like PNG, JPG, JPEG, GIF, and SVG.
+
+4. **Example usage** - Here's how images are currently used in the docs:
+   ```markdown
+   ![Balance Example](/img/Balance.gif)
+   ![AddressInput Example](/img/addressInput.gif)
+   ```
+
+5. **Best practices**:
+   - Use descriptive alt text for accessibility
+   - Optimize images for web (compress large files)
+   - Use GIFs for demonstrating interactions
+   - Use PNG for screenshots and diagrams
+   - Use SVG for icons and simple graphics
+
+### Category Configuration
+
+The `_category_.json` files are used to configure how folders appear in the Docusaurus sidebar. Each folder in your `docs` directory can have a `_category_.json` file to customize its appearance and behavior.
+
+**Purpose of `_category_.json`:**
+- Define the label (display name) for the folder in the sidebar
+- Set the position/order of the folder in the sidebar
+- Configure the generated index page for the folder
+- Add descriptions and metadata
+
+**Example `_category_.json` structure:**
+```json
+{
+  "label": "⚙ Components",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "slug": "components",
+    "description": "Scaffold-Stylus provides a set of pre-built components for common web3 use cases."
+  }
+}
+```
+
+**Key properties:**
+- `label`: The display name in the sidebar (can include emojis)
+- `position`: Numeric order in the sidebar (lower numbers appear first)
+- `link.type`: Set to `"generated-index"` to create an overview page
+- `link.slug`: URL slug for the category page
+- `link.description`: Description shown on the generated index page
+
+**When to create a `_category_.json` file:**
+- When you want to customize how a folder appears in the sidebar
+- When you want to add a description or change the folder name
+- When you want to control the order of folders in the sidebar
+- When you want to create a generated index page for a folder
+
+**Current examples in this project:**
+- `docs/components/_category_.json` - Creates "⚙ Components" section
+- `docs/deploying/_category_.json` - Creates "🛳 Shipping Your dApp" section
+- `docs/recipes/_category_.json` - Creates "🧪 Recipes" section
 
 ## Website contributions
 
