@@ -1,0 +1,162 @@
+---
+sidebar_position: 6
+title: Verify contract on custom chain
+description: Learn how to verify your Stylus contracts on custom chains and Arbitrum Orbit chains.
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Verify contract on custom chain
+
+This recipe demonstrates how to verify your Stylus contracts on custom chains, including Arbitrum Orbit chains. Contract verification is important for transparency and allows users to interact with your contract through block explorers.
+
+:::warning
+Contract verification for Stylus contracts is still **highly experimental**. The process may not work as expected and is subject to change.
+:::
+
+## Prerequisites
+
+Your contract must meet the verification requirements:
+
+- No external libraries
+- No constructor arguments
+- No custom optimization settings
+- No specific compiler version requirements
+
+:::info
+For Orbit chains, your contract must have an `initialize()` function as the replacement for the constructor, since not all orbit chains support the constructor feature. Leave it blank if you don't have any constructor.
+:::
+
+## Method 1: Local Verification (Recommended)
+
+Local verification ensures your Stylus contract deployments are reproducible and validates that the deployed bytecode matches your source code.
+
+### Step 1: Prepare your contract
+
+Make sure your contract doesn't include a constructor or the constructor doesn't contain any arguments:
+
+```rust title="packages/stylus/your-contract/src/lib.rs"
+#[constructor]
+pub fn constructor(&mut self) {
+    // Leave blank or add initialization logic without parameters
+}
+```
+
+### Step 2: Enable verification in deployment script
+
+Update your deployment script to enable verification:
+
+```typescript title="packages/stylus/scripts/deploy.ts"
+import { deployStylusContract } from "./utils";
+
+async function main() {
+  await deployStylusContract({
+    contract: "your-contract",
+    verify: true, // Enable local verification
+    // ... other deployment options
+  });
+}
+```
+
+### Step 3: Deploy with verification
+
+Deploy your contract to your custom chain:
+
+```bash
+yarn deploy --network <your-custom-chain>
+```
+
+The deployment script will automatically run `cargo stylus verify` locally after deployment, which:
+
+- Verifies that the deployed bytecode matches your source code
+- Ensures reproducibility across different environments
+- Validates the deployment transaction
+
+:::tip
+If you encounter permission errors during verification, run:
+
+```bash
+sudo chown -R $USER:$USER target
+```
+
+:::
+
+## Method 2: Block Explorer Verification
+
+For public verification on block explorers (like Arbiscan for Arbitrum networks), follow these steps:
+
+### Step 1: Create a dedicated repository
+
+Create a separate repository containing only your contract source code. This is required for most block explorers.
+
+### Step 2: Navigate to your block explorer
+
+Go to your custom chain's block explorer verification page. For Arbitrum networks, this would be:
+
+- [Arbiscan Verify Contract](https://arbiscan.io/verifyContract) (Arbitrum One)
+- [Arbiscan Sepolia Verify](https://sepolia.arbiscan.io/verifyContract) (Arbitrum Sepolia)
+
+### Step 3: Follow the verification process
+
+1. **Enter your deployed contract address**
+2. **Select compiler type**: Choose "Solidity (Standard-Json-Input)" as the compiler type
+3. **Enter contract source code**: Provide the GitHub link to your contract repository
+4. **Provide constructor arguments**: If applicable (usually none for Stylus contracts)
+5. **Submit for verification**
+
+:::warning
+Arbiscan verification for Stylus contracts is still evolving. If you encounter issues, consider using the local verification method or check the block explorer's latest documentation for Stylus-specific instructions.
+:::
+
+## Method 3: Custom Block Explorer Verification
+
+For custom chains with their own block explorers, the process may vary. Check your chain's documentation for specific verification requirements.
+
+### Common steps for custom explorers:
+
+1. **Find the verification section** in your block explorer
+2. **Upload source code** or provide a GitHub repository link
+3. **Specify compiler settings** (usually Rust/WASM for Stylus)
+4. **Provide deployment information** (constructor arguments, etc.)
+5. **Submit and wait for verification**
+
+## Initialization for Orbit Chains
+
+If you need to initialize your contract after deployment (common for Orbit chains), you can add an `initialize()` function:
+
+```rust title="packages/stylus/your-contract/src/lib.rs"
+use stylus_sdk::prelude::*;
+
+#[stylus::storage]
+struct Counter {
+    number: U256,
+    is_initialized: bool,
+}
+
+impl Counter {
+    pub fn initialize(&mut self, initial_number: U256) {
+        if !self.is_initialized.get() {
+            self.number.set(initial_number);
+            self.is_initialized.set(true);
+        } else {
+            panic!("Counter already initialized");
+        }
+    }
+}
+```
+
+Then initialize your contract using Cast:
+
+```bash
+cast --rpc-url <your-rpc-url> --private-key <your-private-key> \
+  [deployed-contract-address] "initialize(uint256)" <initial_number>
+```
+
+Or add initialization to your deployment script:
+
+```typescript title="packages/stylus/scripts/deploy.ts"
+// After deployment
+const initializeTx = await contract.write.initialize([initialValue]);
+await initializeTx.wait();
+```
