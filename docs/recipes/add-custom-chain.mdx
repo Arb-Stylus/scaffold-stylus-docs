@@ -10,7 +10,8 @@ import TabItem from "@theme/TabItem";
 # Add a custom chain
 
 This recipe demonstrates how to add a custom chain to your project. We'll use an Arbitrum Orbit chain as an example, but you can apply this process to any other chain you want to add.
-Scaffold-Stylus uses [viem/chains](https://viem.sh/docs/chains/introduction) as a list of chains.
+Scaffold-Stylus uses [viem/chains](https://viem.sh/docs/chains/introduction) as a list of chains and provides a set of supported chains in `packages/nextjs/utils/scaffold-stylus/supportedChains.ts`.
+
 Arbitrum Orbit chains are custom blockchains built using Arbitrum's technology stack that settle on Arbitrum L2s or Ethereum. Since these are custom chains, you'll need to add them manually to your project.
 
 :::info
@@ -28,11 +29,9 @@ By doing this, you will be able to deploy the contracts to the chain you added a
 
 ### Step 1: Define the chain
 
-First, create a new file called `customChains.ts` in your `packages/nextjs/utils/` directory.
+First, add your custom chain to `packages/nextjs/utils/scaffold-stylus/supportedChains.ts`.
 
-Open the file with your favorite editor and add the following code to define the chain.
-
-```typescript title="packages/nextjs/utils/customChains.ts"
+```typescript title="packages/nextjs/utils/scaffold-stylus/supportedChains.ts"
 import { defineChain } from "viem";
 
 // Arbitrum Orbit chain example
@@ -56,10 +55,11 @@ export const myOrbitChain = defineChain({
 });
 ```
 
-In this file, we're defining an Arbitrum Orbit chain. We're using the `defineChain` function from viem to define the chain. You can add as many chains as you want to the `customChains.ts` file.
+In this file, we're defining an Arbitrum Orbit chain. We're using the `defineChain` function from viem to define the chain. You can add as many chains as you want to the `supportedChains.ts` file.
 
 :::tip
 When setting up your Orbit chain, you'll need to:
+
 1. Get the chain ID from your Orbit chain deployment
 2. Obtain the RPC URL from your Orbit chain provider
 3. Set up a block explorer (optional but recommended)
@@ -71,11 +71,11 @@ When setting up your Orbit chain, you'll need to:
 Next, update your `scaffold.config.ts` file to include the new chain:
 
 ```typescript title="packages/nextjs/scaffold.config.ts"
-import { myOrbitChain } from "./utils/customChains";
+import * as chains from "./utils/scaffold-stylus/supportedChains";
 // ... other imports and type definitions
 
 const scaffoldConfig = {
-  targetNetworks: [myOrbitChain],
+  targetNetworks: [chains.myOrbitChain],
   // ... other configuration options
 } as const satisfies ScaffoldConfig;
 
@@ -85,10 +85,10 @@ export default scaffoldConfig;
 If you'd like to add multiple chains, you can do so by adding them to the `targetNetworks` array. Below is a simple example of how to add multiple chains.
 
 ```typescript title="packages/nextjs/scaffold.config.ts"
-import { myOrbitChain, myOrbitChainTestnet } from "./utils/customChains";
+import * as chains from "./utils/scaffold-stylus/supportedChains";
 
 const scaffoldConfig = {
-  targetNetworks: [myOrbitChain, myOrbitChainTestnet],
+  targetNetworks: [chains.myOrbitChain, chains.myOrbitChainTestnet],
   // ... other configuration options
 } as const satisfies ScaffoldConfig;
 ```
@@ -98,9 +98,10 @@ const scaffoldConfig = {
 When working with Arbitrum Orbit chains, there are a few additional considerations:
 
 #### Gas Configuration
+
 Orbit chains may have different gas configurations. You might need to adjust gas settings in your contracts:
 
-```typescript title="packages/nextjs/utils/customChains.ts"
+```typescript title="packages/nextjs/utils/scaffold-stylus/supportedChains.ts"
 export const myOrbitChain = defineChain({
   // ... other chain configuration
   fees: {
@@ -110,9 +111,10 @@ export const myOrbitChain = defineChain({
 ```
 
 #### Bridge Configuration
+
 If your Orbit chain supports bridging, you may want to configure bridge contracts:
 
-```typescript title="packages/nextjs/utils/customChains.ts"
+```typescript title="packages/nextjs/utils/scaffold-stylus/supportedChains.ts"
 export const myOrbitChain = defineChain({
   // ... other chain configuration
   contracts: {
@@ -125,6 +127,7 @@ export const myOrbitChain = defineChain({
 ```
 
 #### Stylus Compatibility
+
 Since Scaffold-Stylus supports Arbitrum Stylus, your Orbit chain should be compatible with Stylus contracts. Make sure your Orbit chain deployment includes Stylus support.
 
 :::info

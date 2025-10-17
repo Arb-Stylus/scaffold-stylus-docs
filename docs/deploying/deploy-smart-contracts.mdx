@@ -167,7 +167,7 @@ To deploy your contracts to other networks (other than the default local Nitro d
    Open `packages/nextjs/scaffold.config.ts` and update the `targetNetworks` array to include your target chain. This ensures your frontend connects to the correct network and generates the proper ABI in `deployedContracts.ts`:
 
    ```ts
-   import * as chains from "viem/chains";
+   import * as chains from "./utils/scaffold-stylus/supportedChains";
    // ...
    targetNetworks: [chains.arbitrumSepolia],
    ```
