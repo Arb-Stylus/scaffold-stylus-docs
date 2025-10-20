@@ -1,0 +1,184 @@
+---
+sidebar_position: 2
+---
+
+# Deploy to Orbit Chains
+
+Orbit chains are custom Layer 2 solutions built on Arbitrum's technology stack. Deploying to Orbit chains requires special configuration and considerations compared to standard Arbitrum networks.
+
+## Prerequisites
+
+Before deploying to Orbit chains, ensure you have:
+
+1. **Stylus CLI tools installed** (version ^0.6.1)
+2. **Proper environment configuration** for your target Orbit chain
+3. **Contract initialization setup** (Orbit chains require `initialize()` function instead of constructors)
+
+## Environment Configuration
+
+### 1. Set Up Environment Variables
+
+Create or update your `.env` file in `packages/stylus/` with the appropriate environment variables for your target Orbit chain. Check `packages/stylus/.env.example` for the complete template.
+
+#### Example Environment Configuration
+
+```env
+DEPLOYMENT_DIR=
+
+...
+
+# Orbit Chains - Educhain
+ACCOUNT_ADDRESS_EDUCHAIN_TESTNET=your_account_address_here
+RPC_URL_EDUCHAIN_TESTNET=https://testnet.educhain.org/rpc
+PRIVATE_KEY_EDUCHAIN_TESTNET=your_private_key_here
+
+ACCOUNT_ADDRESS_EDUCHAIN=your_account_address_here
+RPC_URL_EDUCHAIN=https://educhain.org/rpc
+PRIVATE_KEY_EDUCHAIN=your_private_key_here
+
+...
+```
+
+### 2. Required Environment Variables
+
+For each Orbit chain, you need to set:
+
+- `ACCOUNT_ADDRESS_<NETWORK>`: Your wallet address
+- `RPC_URL_<NETWORK>`: The RPC endpoint for the Orbit chain
+- `PRIVATE_KEY_<NETWORK>`: Your wallet's private key
+
+:::warning Security Note
+**Never commit your private keys to version control.** Use environment variables and keep your `.env` file in `.gitignore`.
+:::
+
+## Contract Requirements for Orbit Chains
+
+### Initialize Function Instead of Constructor
+
+Orbit chains don't support constructors in the same way as standard networks. Instead, you must use an `initialize()` function:
+
+```rust
+// In your Rust contract (lib.rs)
+use stylus_sdk::prelude::*;
+
+sol_storage! {
+    pub struct YourContract {
+        uint256 number;
+        address owner;
+    }
+}
+
+#[external]
+impl YourContract {
+    // Initialize function (replaces constructor)
+    pub fn initialize(&mut self) -> Result<(), Vec<u8>> {
+        // Set initial values here
+        self.number.set(0);
+        self.owner.set(msg::sender());
+        Ok(())
+    }
+
+    // Your other functions...
+    pub fn get_number(&self) -> Result<u256, Vec<u8>> {
+        Ok(self.number.get())
+    }
+}
+```
+
+:::info Important
+
+- The `initialize()` function should only be called once
+- Add proper checks to ensure functions don't run if the contract isn't initialized
+- Leave the `initialize()` function blank if you don't have any constructor logic
+:::
+
+## Deployment Configuration
+
+### 1. Update Deploy Script
+
+Ensure your `packages/stylus/scripts/deploy.ts` has the `isOrbit` flag set to `true` for Orbit chain deployments:
+
+```typescript
+// In your deploy.ts script
+await deployStylusContract({
+    contract: "your-contract",
+    constructorArgs: [],
+    isOrbit: true,
+    ...deployOptions,
+  });
+```
+
+### 2. Update Frontend Configuration
+
+Update `packages/nextjs/scaffold.config.ts` to include your Orbit chain:
+
+```typescript
+import * as chains from "./utils/scaffold-stylus/supportedChains";
+
+export const scaffoldConfig = {
+  targetNetworks: [
+    chains.arbitrumSepolia,
+    chains.educhainTestnet, // Add your Orbit chain
+    // ... other networks
+  ],
+  // ... other config
+};
+```
+
+## Deployment Steps
+
+### 1. Check Your Contract
+
+Before deploying, verify your contract compiles correctly:
+
+```bash
+cargo stylus check
+```
+
+You should see output similar to:
+
+```bash
+Finished release [optimized] target(s) in 1.88s
+Reading WASM file at target/wasm32-unknown-unknown/release/your-program.wasm
+Compressed WASM size: 8.9 KB
+Program succeeded Stylus onchain activation checks with Stylus version: 1
+```
+
+### 2. Deploy to Orbit Chain
+
+Deploy your contract to the Orbit chain:
+
+```bash
+yarn deploy --network <orbit-chain-name>
+```
+
+For example:
+
+```bash
+# Deploy to Educhain Testnet
+yarn deploy --network educhain-testnet
+
+# Deploy to Superposition
+yarn deploy --network superposition
+```
+
+### 3. Initialize Your Contract
+
+After deployment, you need to call the `initialize()` function:
+
+```bash
+# This will be handled automatically by the deploy script if configured properly
+# Or you can call it manually through the frontend Debug Contracts page
+```
+
+## Available Orbit Chains
+
+Check which Orbit chains are supported:
+
+```bash
+yarn info:networks
+```
+
+This command will show you all available networks including Orbit chains and their RPC endpoints.
+
+For more information on deploying your frontend, see [Deploy Your NextJS App](./deploy-nextjs-app).
