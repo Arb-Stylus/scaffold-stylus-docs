@@ -34,6 +34,14 @@ For testnet information, including faucets and RPC endpoints, see the [Arbitrum 
 
 ## 2. Deploy your Stylus smart contract(s)
 
+### Deployment Options
+
+Scaffold-Stylus supports deploying to different types of networks:
+
+- **Local Network**: For development and testing
+- **Standard Arbitrum Networks**: Sepolia, Mainnet, Nova
+- **Orbit Chains**: Custom Layer 2 solutions (requires special configuration)
+
 ### Deploy to Local Network
 
 The simplest way to deploy your Stylus smart contract is using:
@@ -134,35 +142,25 @@ To deploy your contracts to other networks (other than the default local Nitro d
 
 ### Prerequisites
 
-1. **Set the RPC URL**
+1. **Set up Environment Variables**
 
-   Configure your target network's RPC endpoint using the proper `RPC_URL_<network>` environment variable. You can set this in your shell or create a `.env` file (see `.env.example` for reference):
+   Configure your target network's environment variables. Check `packages/stylus/.env.example` for the complete template and set the appropriate variables for your target network:
 
    ```env
-   RPC_URL_SEPOLIA=https://your-network-rpc-url
+   # Example for Sepolia
+   ACCOUNT_ADDRESS_SEPOLIA=your_account_address_here
+   RPC_URL_SEPOLIA=https://sepolia-rollup.arbitrum.io/rpc
+   PRIVATE_KEY_SEPOLIA=your_private_key_here
+
+   # Example for Mainnet
+   ACCOUNT_ADDRESS_MAINNET=your_account_address_here
+   RPC_URL_MAINNET=https://arb1.arbitrum.io/rpc
+   PRIVATE_KEY_MAINNET=your_private_key_here
    ```
 
    **Note:** If RPC URL is not provided, the system will use the default public RPC URL from that network.
 
-2. **Set the Private Key**
-
-   For real deployments, you must provide your own wallet's private key. Set the `PRIVATE_KEY_<network>` environment variable:
-
-   ```env
-   PRIVATE_KEY_SEPOLIA=your_private_key_here
-   ```
-
-   **Security Note:** A development key is used by default when running the Nitro dev node locally, but for external deployments, you must provide your own private key.
-
-3. **Set the Account Address**
-
-   Set the `ACCOUNT_ADDRESS_<network>`
-
-   ```env
-   ACCOUNT_ADDRESS_SEPOLIA=your_account_address_here
-   ```
-
-4. **Update Frontend Configuration**
+2. **Update Frontend Configuration**
 
    Open `packages/nextjs/scaffold.config.ts` and update the `targetNetworks` array to include your target chain. This ensures your frontend connects to the correct network and generates the proper ABI in `deployedContracts.ts`:
 
@@ -172,7 +170,7 @@ To deploy your contracts to other networks (other than the default local Nitro d
    targetNetworks: [chains.arbitrumSepolia],
    ```
 
-### Deploy to Other Network
+### Deploy to Standard Networks
 
 Once configured, deploy to your target network:
 
@@ -185,6 +183,10 @@ You can also estimate gas costs before deploying:
 ```bash
 yarn deploy --network <network> --estimate-gas
 ```
+
+### Deploy to Orbit Chains
+
+Orbit chains require special configuration and have different requirements than standard Arbitrum networks. For detailed instructions on deploying to Orbit chains, see [Deploy to Orbit Chains](./deploy-to-orbit-chains).
 
 :::warning Important Security Notes
 
