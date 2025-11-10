@@ -30,7 +30,7 @@ To install an extension when creating a new Scaffold-Stylus project, run:
 npx create-stylus@latest -e {extension-name}
 ```
 
-E.g.: `npx create-stylus@latest -e erc20`
+E.g.: `npx create-stylus@latest -e erc-20`
 
 ## Available Extensions
 
