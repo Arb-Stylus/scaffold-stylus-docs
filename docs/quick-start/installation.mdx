@@ -15,6 +15,16 @@ Before you begin, you need to install the following tools:
 - [Docker](https://docs.docker.com/engine/install/)
 - [Foundry Cast](https://getfoundry.sh/)
 
+:::info Windows Compatibility
+
+Scaffold-Stylus currently does not support Windows natively. If you're using Windows, we recommend:
+
+- **Use WSL (Windows Subsystem for Linux)** - Install WSL2 and run Scaffold-Stylus within the Linux environment
+- **Switch to Linux or macOS** - For the best development experience
+
+For WSL setup, follow the [Microsoft WSL installation guide](https://docs.microsoft.com/en-us/windows/wsl/install).
+:::
+
 ## Easy installation with stylusup (Recommended):
 
 Tool for installing all the Stylus essentials for development. [Stylusup](https://stylusup.sh/#) will install the latest stable versions of:
@@ -45,6 +55,7 @@ cargo install --force cargo-stylus cargo-stylus-check
 ```
 
 **Prerequisite:**
+
 - `cargo-stylus` version `^0.6.1`
 - `rustc` version match with `packages/stylus/your-contract/rust-toolchain.toml`
 
