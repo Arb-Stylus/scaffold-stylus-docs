@@ -32,6 +32,14 @@ This will show you all supported networks and their corresponding RPC endpoints.
 
 For testnet information, including faucets and RPC endpoints, see the [Arbitrum Stylus testnet documentation](https://docs.arbitrum.io/stylus/reference/testnet-information).
 
+### Arbitrum Testnet Faucets
+
+To get testnet ETH for deploying and testing your contracts on Arbitrum Sepolia, you can use the following faucets:
+
+- [Chainlink Faucet](https://faucets.chain.link/arbitrum-sepolia)
+- [QuickNode Faucet](https://faucet.quicknode.com/arbitrum)
+- [Alchemy Faucet](https://www.alchemy.com/faucets/arbitrum-sepolia)
+
 ## 2. Deploy your Stylus smart contract(s)
 
 ### Deployment Options
@@ -90,14 +98,46 @@ Before deploying to live networks, you can check that your program compiles to v
 cargo stylus check
 ```
 
-If successful, you should see:
+This command performs a comprehensive check of your contract, including:
+
+- **Contract size validation**: Verifies your contract is within deployment limits
+- **WASM compilation**: Ensures your Rust code compiles to valid WebAssembly
+- **Deployment hash**: Computes the project metadata hash for deployment
+- **WASM data fee estimation**: Estimates the cost to deploy your contract
+
+#### Understanding the Output
+
+When you run `cargo stylus check`, you'll see output similar to:
 
 ```bash
-Finished release [optimized] target(s) in 1.88s
-Reading WASM file at target/wasm32-unknown-unknown/release/your-program.wasm
-Compressed WASM size: 8.9 KB
-Program succeeded Stylus onchain activation checks with Stylus version: 1
+Finished `release` profile [optimized] target(s) in 0.13s
+stripped custom section from user wasm to remove any sensitive data
+contract size: 29.4 KiB (30067 bytes)
+wasm size: 105.0 KiB (107494 bytes)
+File used for deployment hash: ./Cargo.lock
+File used for deployment hash: ./Cargo.toml
+...
+project metadata hash computed on deployment: "5689e6d67160b086024020d794535313e1411343d0b45565e75ddc055efca5f0"
+wasm data fee: 0.000202 ETH (originally 0.000168 ETH with 20% bump)
 ```
+
+#### Contract Size Indicators
+
+Pay attention to the **contract size** output color:
+
+- **🔴 Red**: Contract size exceeds limitations - **DO NOT DEPLOY**. You need to reduce your contract size.
+
+![Contract size exceeds limitations](/img/exceed-limitation.png)
+
+- **🟡 Yellow/🟢 Green**: Contract size is within acceptable limits - **OK to deploy**.
+
+![Contract size within acceptable limits](/img/within-limitation.png)
+
+If you see the contract size in red, you must optimize your contract code to reduce its size before attempting deployment.
+
+:::warning Important
+When using constructors in your contract, error logs may not be visible during deployment because constructor errors are compiled into the contract. If deployment fails without clear error messages, check your constructor implementation and consider using an `initialize()` function instead (especially for Orbit chains).
+:::
 
 :::info Note
 You can edit your deployment scripts in `packages/stylus/scripts/deploy.ts` to customize the deployment process.
