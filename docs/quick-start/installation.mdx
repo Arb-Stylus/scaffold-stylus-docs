@@ -31,13 +31,21 @@ For WSL setup, follow the [Microsoft WSL installation guide](https://docs.micros
 Tool for installing all the Stylus essentials for development. [Stylusup](https://stylusup.sh/#) will install the latest stable versions of:
 
 - [Rust](https://www.rust-lang.org/tools/install) (if not present) to provide the core programming environment.
-- [cargo-stylus](https://github.com/OffchainLabs/cargo-stylus/blob/main/README.md) (latest version) a tool for creating and managing Stylus projects.
+- [cargo-stylus](https://github.com/OffchainLabs/cargo-stylus/blob/main/README.md) (pin to 0.6.3 for the current base template) a tool for creating and managing Stylus projects.
 - Adding WebAssembly support to compile Rust code for blockchain environments.
 - Optionally collecting and sending telemetry data to track installation statistics.
 
 ```bash
 curl -s https://stylusup.sh/install.sh | sh
 ```
+
+:::note
+`stylusup` installs the **latest** version of cargo-stylus (currently 0.10.x), which is **not compatible** with the current Scaffold-Stylus base template (stylus-sdk 0.9.0). For this template, install the pinned version explicitly:
+
+```bash
+cargo install --force --locked cargo-stylus@0.6.3
+```
+:::
 
 ## Alternatively: Install Rust and the Stylus CLI tool with Cargo:
 
@@ -52,12 +60,12 @@ Check the [Rust installation guide](https://www.rust-lang.org/tools/install) for
 ### Install the Stylus CLI tool with Cargo:
 
 ```bash
-cargo install --force cargo-stylus cargo-stylus-check
+cargo install --force --locked cargo-stylus@0.6.3
 ```
 
 **Prerequisite:**
 
-- `cargo-stylus` version `^0.6.1`
+- `cargo-stylus` version `0.6.3`
 - `rustc` version match with `packages/stylus/your-contract/rust-toolchain.toml`
 
 Set default `toolchain` match `rust-toolchain.toml` and add the `wasm32-unknown-unknown` build target to your Rust compiler:
