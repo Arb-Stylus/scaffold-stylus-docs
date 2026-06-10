@@ -66,7 +66,7 @@ cargo install --force --locked cargo-stylus@0.10.2
 **Prerequisite:**
 
 - `cargo-stylus` version `0.10.2`
-- `rustc` version match with `packages/stylus/rust-toolchain.toml`
+- `rustc` version match with `packages/stylus/contracts/rust-toolchain.toml`
 
 Set default `toolchain` match `rust-toolchain.toml` and add the `wasm32-unknown-unknown` build target to your Rust compiler:
 
@@ -124,5 +124,5 @@ git submodule update --init --recursive
 ```
 
 :::note
-`packages/stylus` is a single **Cargo workspace** — all contracts live as workspace members registered in the root `Cargo.toml`. To add a new contract, run `yarn new-module <name>` (backed by `scripts/new_module.sh`), which scaffolds the crate and registers it as a workspace member automatically.
+The Rust workspace is self-contained in `packages/stylus/contracts/` — it has its own `Cargo.toml` (with `[workspace]`), `Cargo.lock`, and `rust-toolchain.toml`. The example contract lives at `packages/stylus/contracts/your-contract/src/lib.rs`. To add a new contract, run `yarn new-module <name>`, which scaffolds it under `packages/stylus/contracts/<name>/`. Members are auto-discovered via `members = ["*"]` in `contracts/Cargo.toml` — no manual registration needed.
 :::
