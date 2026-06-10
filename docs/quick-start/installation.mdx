@@ -40,10 +40,10 @@ curl -s https://stylusup.sh/install.sh | sh
 ```
 
 :::note
-`stylusup` installs the **latest** version of cargo-stylus (currently 0.10.x), which is **not compatible** with the current Scaffold-Stylus base template (stylus-sdk 0.9.0). For this template, install the pinned version explicitly:
+`stylusup` installs the **latest** version of cargo-stylus (currently 0.10.x), which is **compatible** with the Scaffold-Stylus base template. To guarantee the exact tested version, pin explicitly:
 
 ```bash
-cargo install --force --locked cargo-stylus@0.6.3
+cargo install --force --locked cargo-stylus@0.10.2
 ```
 :::
 
@@ -60,13 +60,13 @@ Check the [Rust installation guide](https://www.rust-lang.org/tools/install) for
 ### Install the Stylus CLI tool with Cargo:
 
 ```bash
-cargo install --force --locked cargo-stylus@0.6.3
+cargo install --force --locked cargo-stylus@0.10.2
 ```
 
 **Prerequisite:**
 
-- `cargo-stylus` version `0.6.3`
-- `rustc` version match with `packages/stylus/your-contract/rust-toolchain.toml`
+- `cargo-stylus` version `0.10.2`
+- `rustc` version match with `packages/stylus/rust-toolchain.toml`
 
 Set default `toolchain` match `rust-toolchain.toml` and add the `wasm32-unknown-unknown` build target to your Rust compiler:
 
@@ -122,3 +122,7 @@ yarn install
 # Initialize submodules (required for Nitro dev node)
 git submodule update --init --recursive
 ```
+
+:::note
+`packages/stylus` is a single **Cargo workspace** — all contracts live as workspace members registered in the root `Cargo.toml`. To add a new contract, run `yarn new-module <name>` (backed by `scripts/new_module.sh`), which scaffolds the crate and registers it as a workspace member automatically.
+:::
