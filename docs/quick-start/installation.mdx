@@ -124,5 +124,7 @@ git submodule update --init --recursive
 ```
 
 :::note
-The Rust workspace is self-contained in `packages/stylus/contracts/` — it has its own `Cargo.toml` (with `[workspace]`), `Cargo.lock`, and `rust-toolchain.toml`. The example contract lives at `packages/stylus/contracts/your-contract/src/lib.rs`. To add a new contract, run `yarn new-module <name>`, which scaffolds it under `packages/stylus/contracts/<name>/`. Members are auto-discovered via `members = ["*"]` in `contracts/Cargo.toml` — no manual registration needed.
+**Multi-contract support:** A single Scaffold-Stylus project can hold as many Stylus contracts as you need — each is its own Rust crate under `packages/stylus/contracts/<name>/`, and all are built and managed together in the same workspace. Run `yarn new-module <name>` to scaffold a new contract; `members = ["*"]` in `contracts/Cargo.toml` auto-discovers it automatically — no manual registration required.
+
+The workspace is self-contained in `packages/stylus/contracts/` with its own `Cargo.toml` (with `[workspace]`), `Cargo.lock`, and `rust-toolchain.toml`. The included example contract is at `packages/stylus/contracts/your-contract/src/lib.rs`.
 :::
