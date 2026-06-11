@@ -36,7 +36,7 @@ Local verification ensures your Stylus contract deployments are reproducible and
 
 Make sure your contract doesn't include a constructor or the constructor doesn't contain any arguments:
 
-```rust title="packages/stylus/your-contract/src/lib.rs"
+```rust title="packages/stylus/contracts/your-contract/src/lib.rs"
 #[constructor]
 pub fn constructor(&mut self) {
     // Leave blank or add initialization logic without parameters
@@ -125,7 +125,7 @@ For custom chains with their own block explorers, the process may vary. Check yo
 
 If you need to initialize your contract after deployment (common for Orbit chains), you can add an `initialize()` function:
 
-```rust title="packages/stylus/your-contract/src/lib.rs"
+```rust title="packages/stylus/contracts/your-contract/src/lib.rs"
 use stylus_sdk::prelude::*;
 
 #[stylus::storage]
