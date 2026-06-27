@@ -34,4 +34,9 @@ E.g.: `npx create-stylus@latest -e erc-20`
 
 ## Available Extensions
 
+Extensions come in two shapes:
+
+- **Contract extensions** (erc-20, erc-721, chainlink-vrf): scaffold a Stylus smart contract that you can deploy with `yarn deploy`.
+- **Frontend-only extensions** (chainlink-data-feed): provide UI components and hooks that read data from an existing on-chain contract (e.g., a Chainlink price feed via `packages/nextjs/contracts/externalContracts.ts`). There is no contract to deploy — `yarn deploy` is a friendly no-op. Use `yarn start` to run the UI.
+
 You can find a complete list of available extensions on [scaffold-stylus extensions](https://github.com/Arb-Stylus/create-stylus/blob/main/src/extensions.json).
