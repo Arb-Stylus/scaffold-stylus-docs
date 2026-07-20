@@ -20,6 +20,8 @@ yarn chain
 
 This command starts a local Stylus-compatible network using the Nitro dev node script (`./nitro-devnode/run-dev-node.sh`). The network runs on your local machine and can be used for testing and development. You can customize the Nitro dev node configuration in the vendored `nitro-devnode` directory.
 
+> **Note:** If you encounter an `execution reverted` error when deploying larger contracts locally, see the [Devnode Troubleshooting](#devnode-troubleshooting) section below.
+
 ### Available Networks
 
 This template supports Arbitrum and it's orbit networks only. You can test which networks are available and their RPC URLs:
@@ -125,15 +127,15 @@ wasm data fee: 0.000202 ETH (originally 0.000168 ETH with 20% bump)
 
 Pay attention to the **contract size** output color:
 
-- **🔴 Red**: Contract size exceeds limitations - **DO NOT DEPLOY**. You need to reduce your contract size.
+- **🔴 Red**: Contract size exceeds the traditional 24KB limit. While older tooling flagged this as a hard limit, **Stylus now supports deploying larger contracts as multiple fragments**. If your contract is red and deploying to a local devnode fails with `execution reverted`, see the [Devnode Troubleshooting](#devnode-troubleshooting) section to ensure your network supports ArbOS 60.
 
 ![Contract size exceeds limitations](/img/exceed-limitation.png)
 
-- **🟡 Yellow/🟢 Green**: Contract size is within acceptable limits - **OK to deploy**.
+- **🟡 Yellow/🟢 Green**: Contract size is within the 24KB single-fragment limit - **OK to deploy**.
 
 ![Contract size within acceptable limits](/img/within-limitation.png)
 
-If you see the contract size in red, you must optimize your contract code to reduce its size before attempting deployment.
+Even though multi-fragment deployment is now supported on ArbOS 60 networks, optimizing your contract code to reduce its size is still recommended to save on deployment costs.
 
 :::warning Important
 When using constructors in your contract, error logs may not be visible during deployment because constructor errors are compiled into the contract. If deployment fails without clear error messages, check your constructor implementation and consider using an `initialize()` function instead (especially for Orbit chains).
@@ -228,9 +230,38 @@ yarn deploy --network <network> --estimate-gas
 
 Orbit chains require special configuration and have different requirements than standard Arbitrum networks. For detailed instructions on deploying to Orbit chains, see [Deploy to Orbit Chains](./deploy-to-orbit-chains).
 
+## Devnode Troubleshooting
+
+### `execution reverted` on Contract Activation
+
+If you attempt to deploy a contract to a local devnode and see the following error, your local network may be missing the required ArbOS version:
+
+```text
+error: server returned an error response: error code -32000: execution reverted
+```
+
+**Why this happens:**
+Stylus contracts larger than 24KB (24576 bytes compressed) are deployed as **multiple fragments**. Activating a multi-fragment contract requires ArbOS 60. A devnode running an older nitro image boots at ArbOS 59 and the activation reverts, with an error that does not obviously point at ArbOS.
+
+**How to fix it:**
+The fix has two parts, and **both are required**:
+
+1. **Update your nitro-node image**: Your devnode must use `v3.11.0-a618155` or newer. The image alone is NOT enough, as the devnode boots at ArbOS 59 by default.
+2. **Explicitly schedule the ArbOS 60 upgrade**: You must execute the upgrade transaction before deploying. You can do this with `cast`:
+
+   ```bash
+   cast send -r $RPC --private-key $PRIVATE_KEY 0x0000000000000000000000000000000000000070 \
+     'scheduleArbOSUpgrade(uint64,uint64)' 60 0
+   ```
+
+   **The ArbOS Version Trap:** The first argument is the ArbOS version (`60`), **NOT** the number reported by `ArbSys.arbOSVersion()`. Because the devnode's `ArbSys` reports `114` before the upgrade and `115` after, it is a common mistake to pass `115` to this function. If you do, it will be silently ignored (out of range) and the contract will still revert.
+
+If you are using the default `./nitro-devnode/run-dev-node.sh` or `./nitro-devnode/start-chain-with-cors.sh` scripts, this is handled for you automatically in Scaffold-Stylus v0.1.17 and later. Ensure your vendored `nitro-devnode` directory is up to date with the latest release.
+
 :::warning Important Security Notes
 
 - The values in `.env.example` provide a template for required environment variables
 - **Always keep your private key secure and never commit it to version control**
 - Consider using environment variable management tools for production deployments
-  :::
+:::
+
