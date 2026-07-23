@@ -26,28 +26,7 @@ Scaffold-Stylus currently does not support Windows natively. If you're using Win
 For WSL setup, follow the [Microsoft WSL installation guide](https://docs.microsoft.com/en-us/windows/wsl/install).
 :::
 
-## Easy installation with stylusup (Recommended):
-
-Tool for installing all the Stylus essentials for development. [Stylusup](https://stylusup.sh/#) will install the latest stable versions of:
-
-- [Rust](https://www.rust-lang.org/tools/install) (if not present) to provide the core programming environment.
-- [cargo-stylus](https://github.com/OffchainLabs/cargo-stylus/blob/main/README.md) (latest version) a tool for creating and managing Stylus projects.
-- Adding WebAssembly support to compile Rust code for blockchain environments.
-- Optionally collecting and sending telemetry data to track installation statistics.
-
-```bash
-curl -s https://stylusup.sh/install.sh | sh
-```
-
-:::note
-`stylusup` installs the **latest** version of cargo-stylus (currently 0.10.x), which is **compatible** with the Scaffold-Stylus base template. To guarantee the exact tested version, pin explicitly:
-
-```bash
-cargo install --force --locked cargo-stylus@0.10.2
-```
-:::
-
-## Alternatively: Install Rust and the Stylus CLI tool with Cargo:
+## Install Rust and the Stylus CLI tool with Cargo:
 
 ### Install Rust:
 
@@ -59,20 +38,24 @@ Check the [Rust installation guide](https://www.rust-lang.org/tools/install) for
 
 ### Install the Stylus CLI tool with Cargo:
 
+:::warning
+This project requires `cargo-stylus` version `0.10.8` and `rustc` version `1.91.0` (as pinned in `packages/stylus/contracts/rust-toolchain.toml`). Do NOT use `stylusup` to install Stylus tools, as it installs the latest versions which are incompatible with these pinned requirements.
+:::
+
 ```bash
-cargo install --force --locked cargo-stylus@0.10.2
+cargo install --force --locked cargo-stylus@0.10.8
 ```
 
 **Prerequisite:**
 
-- `cargo-stylus` version `0.10.2`
+- `cargo-stylus` version `0.10.8`
 - `rustc` version match with `packages/stylus/contracts/rust-toolchain.toml`
 
 Set default `toolchain` match `rust-toolchain.toml` and add the `wasm32-unknown-unknown` build target to your Rust compiler:
 
 ```bash
-rustup default 1.89
-rustup target add wasm32-unknown-unknown --toolchain 1.89
+rustup default 1.91.0
+rustup target add wasm32-unknown-unknown --toolchain 1.91.0
 ```
 
 You should now have it available as a Cargo subcommand:
