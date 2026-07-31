@@ -71,7 +71,7 @@ The deployment is configured in `docusaurus.config.js`:
 - **Organization:** `Arb-Stylus`
 - **Project:** `scaffold-stylus-docs`
 - **Base URL:** `/scaffold-stylus-docs/`
-- **Production URL:** `https://docs.scaffoldstylus.io`
+- **Production URL:** `https://arb-stylus.github.io/scaffold-stylus-docs/`
 
 ## Troubleshooting
 
