@@ -88,7 +88,7 @@ const config = {
         items: [
           // commented until Scaffold-Stylus website is launched
           {
-            href: "https://www.scaffoldstylus.com/",
+            href: "https://scaffoldstylus.quantum3labs.com/",
             label: "Scaffold-Stylus Website",
             position: "left",
           },
